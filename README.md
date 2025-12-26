@@ -174,7 +174,6 @@ core/RetMath/
 │   ├── transformations/  # Transformation classes
 │   ├── color/            # Color classes
 │   └── utilities/        # Utility functions
-└── src/                  # Source implementations
 ```
 
 ## Performance
