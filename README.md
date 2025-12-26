@@ -9,6 +9,52 @@ RetMath is a comprehensive C++ mathematics library designed for game development
   <img src="demo.gif" alt="RetMath Library Demo" width="800"/>
   <br>
   <em>Demonstration of vector operations, matrix transformations, and collision detection</em>
+  
+  <div style="margin: 20px 0;">
+    <details>
+    <summary style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; background: #2d3748; color: white; border-radius: 6px; cursor: pointer; border: 2px solid #4a5568;">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>
+      <b>Розкрити код демонстрації</b>
+    </summary>
+    
+    <div align="left" style="margin-top: 20px; padding: 25px; background: #1a202c; border-radius: 8px; color: #e2e8f0;">
+    
+    ```cpp
+    // Повний код анімації з GIF
+    #include <RetMath.hpp>
+    #include <vector>
+    
+    class DemoRenderer {
+        std::vector<Math::Vector3<float>> points;
+        Math::Matrix4x4<float> viewMatrix;
+        Math::Matrix4x4<float> projectionMatrix;
+        
+    public:
+        void renderFrame() {
+            // 1. Очищення сцени
+            clear();
+            
+            // 2. Застосування трансформацій
+            for (const auto& point : points) {
+                auto transformed = viewMatrix * point;
+                drawPoint(transformed);
+            }
+            
+            // 3. Колізії та інтерактивність
+            handleInteractions();
+        }
+    };
+    ```
+    
+    <div align="center" style="margin-top: 15px; font-size: 0.9em; color: #a0aec0;">
+    Цей код генерує подібну візуалізацію
+    </div>
+    </div>
+    </details>
+  </div>
 </div>
 
 ## Features
