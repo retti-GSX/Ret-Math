@@ -20,17 +20,9 @@ RetMath is a comprehensive C++ mathematics library designed for game development
       <b>Reveal demo code</b>
     </summary>
     
-    <div align="left" style="margin-top: 20px; padding: 25px; background: #1a202c; border-radius: 8px; color: #e2e8f0;">
-    
     ```cpp
 
     ```
-    
-    <div align="center" style="margin-top: 15px; font-size: 0.9em; color: #a0aec0;">
-    This code generates a similar visualization
-    </div>
-    </div>
-    </details>
   </div>
 </div>
 
