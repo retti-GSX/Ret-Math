@@ -1,6 +1,10 @@
 # RetMath - Mathematics Library for Games and Graphics (MIT)
 
-[![Documentation](https://img.shields.io/badge/documentation-available-blue)](docs/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![C++20](https://img.shields.io/badge/C++-20-blue.svg)]()
+[![CMake](https://img.shields.io/badge/CMake-3.15+-green.svg)]()
+[![Header-only](https://img.shields.io/badge/header--only-✓-brightgreen.svg)]()
+[![Documentation](https://img.shields.io/badge/docs-online-brightgreen)](docs/)
 
 RetMath is a comprehensive C++ mathematics library designed for game development, computer graphics, and real-time applications. It provides a wide range of mathematical structures and functions for working with vectors, matrices, quaternions, geometry, transformations, colors, and various utility functions.
 
