@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetMath Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>RetMath Documentation</h1>
+        <p>Mathematical library for games and graphics</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#vectors">Vectors</a></li>
+            <li><a href="#matrices">Matrices</a></li>
+            <li><a href="#quaternions">Quaternions</a></li>
+            <li><a href="#geometry">Geometry</a></li>
+            <li><a href="#transformations">Transformations</a></li>
+            <li><a href="#color">Colors</a></li>
+            <li><a href="#utilities">Utilities</a></li>
+            <li><a href="#usage">Usage</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>RetMath is a mathematical library designed for games and graphics. It contains various mathematical structures and functions for working with vectors, matrices, geometry, and other mathematical objects.</p>
+            
+            <h3>Main Components</h3>
+            <ul>
+                <li><strong>Vectors:</strong> 2D, 3D, and 4D vectors</li>
+                <li><strong>Matrices:</strong> 2x2, 3x3, and 4x4 matrices</li>
+                <li><strong>Quaternions:</strong> for representing rotations</li>
+                <li><strong>Geometry:</strong> various geometric shapes and intersections</li>
+                <li><strong>Transformations:</strong> transformation matrices</li>
+                <li><strong>Colors:</strong> working with colors</li>
+                <li><strong>Utilities:</strong> various mathematical functions</li>
+            </ul>
+        </section>
+        
+        <section id="vectors">
+            <h2>Vectors</h2>
+            <div class="component">
+                <h3>Vector2</h3>
+                <p>A two-dimensional vector with x and y components. Used to represent points and directions in 2D space.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Vector2<float> vec(1.0f, 2.0f);
+Vector2<float> result = vec.normalized();
+float dotProduct = vec.dot(otherVec);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>length()</code> - calculates the length of the vector</li>
+                    <li><code>lengthSquared()</code> - calculates the squared length (faster than length())</li>
+                    <li><code>normalized()</code> - returns a normalized vector</li>
+                    <li><code>normalize()</code> - normalizes the current vector</li>
+                    <li><code>dot()</code> - dot product with another vector</li>
+                    <li><code>cross()</code> - cross product (returns a scalar for 2D)</li>
+                    <li><code>lerp()</code> - linear interpolation between two vectors</li>
+                </ul>
+                <h4>Operators</h4>
+                <ul>
+                    <li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> - arithmetic operations</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Vector3</h3>
+                <p>A three-dimensional vector with x, y, and z components. Used to represent points, directions, and colors in 3D space.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Vector3<float> vec(1.0f, 2.0f, 3.0f);
+Vector3<float> rotated = vec.rotatedX(Math::toRadians(45.0f));
+Vector3<float> cross = vec.cross(otherVec);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>cross()</code> - cross product with another vector</li>
+                    <li><code>dot()</code> - dot product</li>
+                    <li><code>rotatedX/Y/Z()</code> - rotation around the respective axis</li>
+                    <li><code>equals()</code> - comparison with another vector with specified precision</li>
+                    <li><code>lerp()</code> - linear interpolation</li>
+                </ul>
+                <h4>Operators</h4>
+                <ul>
+                    <li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> - arithmetic operations</li>
+                    <li><code>-</code> (unary) - vector inversion</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Vector4</h3>
+                <p>A four-dimensional vector with x, y, z, and w components. Used for homogeneous coordinates in 3D graphics and other specialized applications.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Vector4<float> vec(1.0f, 2.0f, 3.0f, 1.0f);
+Vector4<float> transformed = matrix * vec;</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>length()</code> - vector length</li>
+                    <li><code>normalized()</code> - normalized vector</li>
+                    <li><code>dot()</code> - dot product</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="matrices">
+            <h2>Matrices</h2>
+            <div class="component">
+                <h3>Matrix2x2</h3>
+                <p>A 2x2 matrix for linear transformations in 2D space. Used for scaling, rotation, and other linear transformations.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Matrix2x2<float> mat;
+mat.m[0][0] = 1.0f; 
+Vector2<float> transformed = mat * Vector2<float>(1.0f, 0.0f);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>identity()</code> - identity matrix</li>
+                    <li><code>rotation()</code> - rotation matrix</li>
+                    <li><code>scale()</code> - scaling matrix</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Matrix3x3</h3>
+                <p>A 3x3 matrix for linear transformations in 3D space. Used for rotations, scaling, and other linear transformations without translation.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Matrix3x3<float> mat = Matrix3x3<float>::rotationZ(Math::toRadians(45.0f));
+Vector3<float> transformed = mat * Vector3<float>(1.0f, 0.0f, 0.0f);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>identity()</code> - identity matrix</li>
+                    <li><code>rotationX/Y/Z()</code> - rotation matrices around the axis</li>
+                    <li><code>scale()</code> - scaling matrix</li>
+                    <li><code>inverse()</code> - inverse matrix</li>
+                    <li><code>transposed()</code> - transposed matrix</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Matrix4x4</h3>
+                <p>A 4x4 matrix for affine transformations in 3D space. Used for combining rotations, scaling, translations, and perspective transformations.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Matrix4x4<float> mat = Matrix4x4<float>::translation(1.0f, 2.0f, 3.0f);
+Vector4<float> transformed = mat * Vector4<float>(0.0f, 0.0f, 0.0f, 1.0f);
+
+Matrix4x4<float> view = Matrix4x4<float>::lookAt(
+    Vector3<float>(0.0f, 0.0f, 5.0f),
+    Vector3<float>(0.0f, 0.0f, 0.0f),
+    Vector3<float>(0.0f, 1.0f, 0.0f)
+);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>identity()</code> - identity matrix</li>
+                    <li><code>translation()</code> - translation matrix</li>
+                    <li><code>rotationX/Y/Z()</code> - rotation matrices</li>
+                    <li><code>scale()</code> - scaling matrix</li>
+                    <li><code>perspective()</code> - perspective projection matrix</li>
+                    <li><code>orthographic()</code> - orthographic projection matrix</li>
+                    <li><code>lookAt()</code> - view matrix (camera)</li>
+                    <li><code>inverse()</code> - inverse matrix</li>
+                    <li><code>transposed()</code> - transposed matrix</li>
+                    <li><code>transformPoint()</code> - point transformation</li>
+                    <li><code>transformVector()</code> - vector transformation</li>
+                </ul>
+                <h4>Operators</h4>
+                <ul>
+                    <li><code>*</code> - matrix multiplication and matrix-vector multiplication</li>
+                    <li><code>[]</code> - access to matrix rows</li>
+                    <li><code>()</code> - access to matrix elements</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="quaternions">
+            <h2>Quaternions</h2>
+            <div class="component">
+                <h3>Quaternion</h3>
+                <p>Quaternions for representing rotations in 3D space. Provide a more efficient and stable way to work with rotations compared to matrices.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Quaternion<float> quat(Vector3<float>(0.0f, 1.0f, 0.0f), Math::toRadians(45.0f));
+Matrix4x4<float> mat = quat.toMatrix();
+
+Quaternion<float> q1, q2;
+Quaternion<float> interpolated = Quaternion<float>::slerp(q1, q2, 0.5f);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>normalized()</code> - returns a normalized quaternion</li>
+                    <li><code>normalize()</code> - normalizes the current quaternion</li>
+                    <li><code>conjugate()</code> - returns the conjugate quaternion</li>
+                    <li><code>inverse()</code> - returns the inverse quaternion</li>
+                    <li><code>toMatrix()</code> - converts the quaternion to a 4x4 matrix</li>
+                    <li><code>fromMatrix()</code> - creates a quaternion from a matrix</li>
+                    <li><code>toAxisAngle()</code> - converts to axis and angle</li>
+                    <li><code>fromAxisAngle()</code> - creates from axis and angle</li>
+                    <li><code>fromEuler()</code> - creates from Euler angles</li>
+                    <li><code>toEuler()</code> - converts to Euler angles</li>
+                    <li><code>lerp()</code> - linear interpolation</li>
+                    <li><code>slerp()</code> - spherical interpolation</li>
+                </ul>
+                <h4>Operators</h4>
+                <ul>
+                    <li><code>*</code> - quaternion multiplication and quaternion-vector multiplication</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="geometry">
+            <h2>Geometry</h2>
+            <div class="component">
+                <h3>Plane</h3>
+                <p>A plane in 3D space, defined by a normal and a distance from the origin.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Plane<float> plane(Vector3<float>(0.0f, 1.0f, 0.0f), 0.0f);
+float distance = plane.distanceToPoint(Vector3<float>(0.0f, 5.0f, 0.0f));</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>distanceToPoint()</code> - distance from a point to the plane</li>
+                    <li><code>getNormal()</code> - get the normal</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Ray</h3>
+                <p>A ray in 3D space, defined by a starting point and a direction.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Ray<float> ray(Vector3<float>(0.0f, 0.0f, 0.0f), Vector3<float>(0.0f, 0.0f, 1.0f));
+Vector3<float> point = ray.getPoint(5.0f);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>getPoint()</code> - get a point on the ray at a given distance</li>
+                    <li><code>getOrigin()</code> - get the starting point</li>
+                    <li><code>getDirection()</code> - get the direction</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Rect</h3>
+                <p>A rectangle in 2D space, defined by position, size, and rotation.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Rect<float> rect(Vector2<float>(0.0f, 0.0f), Vector2<float>(10.0f, 5.0f));
+bool contains = rect.contains(Vector2<float>(3.0f, 2.0f));</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>contains()</code> - check if a point is inside the rectangle</li>
+                    <li><code>intersects()</code> - check intersection with another rectangle</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Circle</h3>
+                <p>A circle in 2D space, defined by a center and a radius.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Circle<float> circle(Vector2<float>(0.0f, 0.0f), 5.0f);
+bool intersects = circle.intersects(Vector2<float>(3.0f, 4.0f));</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>contains()</code> - check if a point is inside the circle</li>
+                    <li><code>intersects()</code> - check intersection</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>AABB</h3>
+                <p>Axis-Aligned Bounding Box (AABB) in 3D space.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">AABB<float> aabb(Vector3<float>(0.0f, 0.0f, 0.0f), Vector3<float>(5.0f, 5.0f, 5.0f));
+bool intersects = aabb.intersects(Vector3<float>(3.0f, 3.0f, 3.0f));</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>contains()</code> - check if a point is inside the AABB</li>
+                    <li><code>intersects()</code> - check intersection</li>
+                    <li><code>getMin()</code> - get the minimum point</li>
+                    <li><code>getMax()</code> - get the maximum point</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Sphere</h3>
+                <p>A sphere in 3D space, defined by a center and a radius.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Sphere<float> sphere(Vector3<float>(0.0f, 0.0f, 0.0f), 5.0f);
+bool intersects = sphere.intersects(Vector3<float>(3.0f, 0.0f, 0.0f));
+float volume = sphere.volume();</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>contains()</code> - check if a point is inside the sphere</li>
+                    <li><code>intersects()</code> - check intersection with another sphere</li>
+                    <li><code>volume()</code> - calculate volume</li>
+                    <li><code>surfaceArea()</code> - calculate surface area</li>
+                    <li><code>intersectRay()</code> - intersection with a ray</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Triangle</h3>
+                <p>A triangle in 3D space, defined by three vertices.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Triangle<float> triangle(
+    Vector3<float>(0.0f, 0.0f, 0.0f),
+    Vector3<float>(1.0f, 0.0f, 0.0f),
+    Vector3<float>(0.0f, 1.0f, 0.0f)
+);
+Vector3<float> normal = triangle.getNormal();</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>getNormal()</code> - calculate the normal</li>
+                    <li><code>getArea()</code> - calculate the area</li>
+                    <li><code>contains()</code> - check if a point is inside the triangle</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>OBB</h3>
+                <p>Oriented Bounding Box (OBB) in 3D space.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">OBB<float> obb(Vector3<float>(0.0f, 0.0f, 0.0f), Vector3<float>(5.0f, 5.0f, 5.0f), Quaternion<float>());
+bool intersects = obb.intersects(Vector3<float>(3.0f, 3.0f, 3.0f));</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>contains()</code> - check if a point is inside the OBB</li>
+                    <li><code>intersects()</code> - check intersection</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Capsule</h3>
+                <p>A capsule in 3D space, defined by a segment and a radius.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Capsule<float> capsule(
+    Vector3<float>(0.0f, 0.0f, 0.0f),
+    Vector3<float>(0.0f, 5.0f, 0.0f),
+    1.0f
+);
+bool intersects = capsule.intersects(Vector3<float>(0.0f, 2.5f, 1.0f));</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>contains()</code> - check if a point is inside the capsule</li>
+                    <li><code>intersects()</code> - check intersection</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="transformations">
+            <h2>Transformations</h2>
+            <div class="component">
+                <h3>Transform</h3>
+                <p>A class for working with object transformations in 3D space. Combines position, rotation, and scale.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Transform transform;
+transform.setPosition(Vector3<float>(1.0f, 2.0f, 3.0f));
+transform.setRotation(Quaternion<float>(Vector3<float>(0.0f, 1.0f, 0.0f), Math::toRadians(45.0f)));
+transform.setScale(Vector3<float>(2.0f, 2.0f, 2.0f));
+
+Matrix4x4<float> matrix = transform.getMatrix();</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>setPosition()</code> - set position</li>
+                    <li><code>setRotation()</code> - set rotation</li>
+                    <li><code>setScale()</code> - set scale</li>
+                    <li><code>getMatrix()</code> - get transformation matrix</li>
+                    <li><code>getPosition()</code> - get position</li>
+                    <li><code>getRotation()</code> - get rotation</li>
+                    <li><code>getScale()</code> - get scale</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="color">
+            <h2>Colors</h2>
+            <div class="component">
+                <h3>Color</h3>
+                <p>A class for working with colors in RGB, RGBA, and HEX formats.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">Color color(1.0f, 0.0f, 0.0f, 1.0f); 
+Color colorFromHex = Color::fromHex(0xFF0000FF);
+
+Color lerped = Color::lerp(color1, color2, 0.5f);
+std::string hex = color.toHex();</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>fromHex()</code> - create a color from a HEX value</li>
+                    <li><code>toHex()</code> - convert to a HEX string</li>
+                    <li><code>lerp()</code> - linear interpolation between colors</li>
+                    <li><code>getR()</code>, <code>getG()</code>, <code>getB()</code>, <code>getA()</code> - get components</li>
+                    <li><code>setR()</code>, <code>setG()</code>, <code>setB()</code>, <code>setA()</code> - set components</li>
+                </ul>
+                <h4>Operators</h4>
+                <ul>
+                    <li><code>*</code> - multiply color by a scalar</li>
+                    <li><code>+</code> - add colors</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="utilities">
+            <h2>Utilities</h2>
+            <div class="component">
+                <h3>Random</h3>
+                <p>Random number and value generation.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">float randomFloat = Random::range(0.0f, 1.0f);
+int randomInt = Random::range(1, 100);
+Vector3<float> randomVec = Random::inUnitSphere();</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>range()</code> - random number in a range</li>
+                    <li><code>inUnitSphere()</code> - random point inside a unit sphere</li>
+                    <li><code>inUnitCircle()</code> - random point inside a unit circle</li>
+                    <li><code>onUnitSphere()</code> - random point on the surface of a unit sphere</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Interpolation</h3>
+                <p>Interpolation of values and objects.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">float value = Interpolation::lerp(0.0f, 10.0f, 0.5f);
+float smooth = Interpolation::smoothstep(0.0f, 10.0f, 5.0f);
+float smoother = Interpolation::smootherstep(0.0f, 10.0f, 5.0f);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>lerp()</code> - linear interpolation</li>
+                    <li><code>smoothstep()</code> - smooth interpolation</li>
+                    <li><code>smootherstep()</code> - smoother interpolation</li>
+                    <li><code>catmullRom()</code> - Catmull-Rom interpolation</li>
+                </ul>
+            </div>
+            
+            <div class="component">
+                <h3>Intersection</h3>
+                <p>Functions for intersecting geometric objects in 2D and 3D.</p>
+                <div class="code-block">
+                    <pre><code class="cpp">
+bool intersects = Intersection::raySphere(ray, sphere, t1, t2);
+Vector3f point = Intersection::computeIntersectionPoint(ray, t1);
+bool aabbIntersect = Intersection::aabbAABB(aabb1, aabb2);
+bool sphereIntersect = Intersection::sphereSphere(sphere1, sphere2);
+bool triangleIntersect = Intersection::rayTriangle(ray, triangle, t, nullptr, nullptr);</code></pre>
+                </div>
+                <h4>Methods</h4>
+                <ul>
+                    <li><code>raySphere()</code> - ray-sphere intersection</li>
+                    <li><code>rayPlane()</code> - ray-plane intersection</li>
+                    <li><code>rayAABB()</code> - ray-AABB intersection</li>
+                    <li><code>rayTriangle()</code> - ray-triangle intersection</li>
+                    <li><code>aabbAABB()</code> - intersection of two AABBs</li>
+                    <li><code>sphereSphere()</code> - intersection of two spheres</li>
+                    <li><code>pointInAABB()</code> - check if a point is inside an AABB</li>
+                    <li><code>pointInSphere()</code> - check if a point is inside a sphere</li>
+                    <li><code>lineLine()</code> - intersection of two lines in 2D</li>
+                    <li><code>lineRect()</code> - intersection of a line with a rectangle in 2D</li>
+                    <li><code>circlesIntersect()</code> - intersection of two circles in 2D</li>
+                    <li><code>distancePointToLine()</code> - distance from a point to a line</li>
+                    <li><code>distancePointToPlane()</code> - distance from a point to a plane</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="usage">
+            <h2>Usage</h2>
+            <h3>Building</h3>
+            <p>To build the library, use CMake:</p>
+            <div class="code-block">
+                <pre><code class="bash">mkdir build
+cd build
+cmake ..
+make</code></pre>
+            </div>
+             
+            <h3>Example Usage</h3>
+            <div class="code-block">
+                <pre><code class="cpp">#include "RetMath.hpp"
+
+int main() {
+    using namespace Math;
+     
+    Vec3 vector(1.0f, 2.0f, 3.0f);
+    Vec3 normalized = vector.normalized();
+     
+    Mat4 transform = Mat4::translation(1.0f, 2.0f, 3.0f);
+    Vec4 transformed = transform * Vec4(0.0f, 0.0f, 0.0f, 1.0f);
+     
+    return 0;
+}</code></pre>
+            </div>
+             
+            <h3>Testing</h3>
+            <p>To test the library, you can use the provided test program:</p>
+            <div class="code-block">
+                <pre><code class="bash">cd tests
+g++ -o demo demo.cpp ../core/RetMath/src/vectors/vector3.cpp ../core/RetMath/src/vectors/vector4.cpp ../core/RetMath/src/matrices/matrix4x4.cpp ../core/RetMath/src/quaternions/quaternion.cpp ../core/RetMath/src/geometry/sphere.cpp ../core/RetMath/src/geometry/aabb.cpp -I../core/RetMath/include
+./demo</code></pre>
+            </div>
+            <p>The test program loads the RetMath DLL and performs comprehensive tests on vectors, matrices, quaternions, and geometric operations. It verifies the functionality of the library by testing vector addition, normalization, dot products, matrix operations, quaternion operations, and geometric containment checks.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Documentation created for RetMath</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
