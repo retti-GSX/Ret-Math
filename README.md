@@ -9,7 +9,7 @@ RetMath is a comprehensive C++ mathematics library designed for game development
   <img src="docs/2dgravity.gif" alt="RetMath Library Demo" width="800"/>
   <br>
   <em>Demonstration of vector operations, matrix transformations, and collision detection</em>
-</div>div>
+</div>
 
 ## Features
 
