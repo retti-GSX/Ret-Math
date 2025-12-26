@@ -78,25 +78,40 @@ MathConstants::RAD_TO_DEG
 int main() {
     using namespace Math;
     
-    // Vector operations
-    Vec3 vector(1.0f, 2.0f, 3.0f);
-    Vec3 normalized = vector.normalized();
-    float length = vector.length();
+    // Vector operations example
+    Vector3<float> vector(1.0f, 2.0f, 3.0f);
+    Vector3<float> normalized = vector.normalized();  // Get normalized vector
+    float length = vector.length();  // Calculate vector length
     
-    // Matrix operations
-    Mat4 transform = Mat4::translation(1.0f, 2.0f, 3.0f);
-    Mat4 rotation = Mat4::rotationY(toRadians(45.0f));
-    Mat4 combined = transform * rotation;
+    // Matrix operations - create transformation matrices
+    // Create translation matrix for moving objects in 3D space
+    Matrix4x4<float> transform = Matrix4x4<float>::translation(1.0f, 2.0f, 3.0f);
     
-    // Quaternion operations
-    Quat quaternion(Vec3(0.0f, 1.0f, 0.0f), toRadians(90.0f));
-    Mat4 rotationMatrix = quaternion.toMatrix();
+    // Create rotation matrix for 45 degrees around Y-axis
+    // Convert degrees to radians using constant
+    Matrix4x4<float> rotation = Matrix4x4<float>::rotationY(MathConstants::PI / 4.0f);
     
-    // Geometry operations
-    Sphere<float> sphere(Vec3(0.0f, 0.0f, 0.0f), 5.0f);
-    bool contains = sphere.contains(Vec3(1.0f, 0.0f, 0.0f));
+    // Combine translation and rotation matrices (translation first, then rotation)
+    Matrix4x4<float> combined = transform * rotation;
     
-    return 0;
+    // Quaternion operations - alternative to matrices for rotations
+    Vector3<float> axis(0.0f, 1.0f, 0.0f);  // Rotation axis (Y-axis)
+    Quaternion<float> quaternion;
+    
+    // Create quaternion from axis and angle (90 degrees around Y-axis)
+    quaternion.fromAxisAngle(axis, MathConstants::PI / 2.0f);
+    
+    // Convert quaternion to matrix for use with standard transformation pipeline
+    Matrix4x4<float> rotationMatrix = quaternion.toMatrix();
+    
+    // Geometry operations - working with 3D shapes
+    // Create sphere at origin with radius 5 units
+    Sphere<float> sphere(Vector3<float>(0.0f, 0.0f, 0.0f), 5.0f);
+    
+    // Check if point (1, 0, 0) is inside the sphere
+    bool contains = sphere.contains(Vector3<float>(1.0f, 0.0f, 0.0f));
+    
+    return 0;  // Exit program successfully
 }
 ```
 
