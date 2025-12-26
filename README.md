@@ -1,6 +1,6 @@
 # RetMath - Mathematics Library for Games and Graphics (MIT)
 
-[![Documentation](docs/index.html)](docs/index.html) | [CMake Build](CMakeLists.txt)
+[![Documentation](docs/)](docs/) | [CMake Build](CMakeLists.txt)
 
 RetMath is a comprehensive C++ mathematics library designed for game development, computer graphics, and real-time applications. It provides a wide range of mathematical structures and functions for working with vectors, matrices, quaternions, geometry, transformations, colors, and various utility functions.
 
@@ -123,7 +123,13 @@ RetMath uses CMake for building. The library can be built as both static and sha
 mkdir build
 cd build
 cmake ..
+# For multi-config generators (Visual Studio, Xcode)
 cmake --build . --config Release
+
+# For single-config generators (Unix Makefiles)
+cmake --build .
+# or
+make
 ```
 
 This will generate:
@@ -135,15 +141,13 @@ This will generate:
 To use RetMath in your CMake project:
 
 ```cmake
-find_package(RetMath REQUIRED)
-target_link_libraries(your_project RetMath)
-```
-
-Or directly include it:
-
-```cmake
+# Option 1: Include as subdirectory
 add_subdirectory(path/to/RetMath)
 target_link_libraries(your_project RetMath_static)
+
+# Option 2: Use as header-only
+include_directories(path/to/RetMath/include)
+# No linking required
 ```
 
 ## Documentation
@@ -182,15 +186,15 @@ core/RetMath/
 - Optimized for real-time applications
 
 ## Dependencies
-
-RetMath is a header-only library with minimal dependencies:
+RetMath is a **header-only** library with minimal dependencies:
 - C++20 compliant compiler
-- CMake 3.15 or higher (for building)
 - Standard Template Library (STL)
+
+*Note: For advanced builds, CMake 3.15+ is recommended.*
 
 ## License
 
-This library is provided as part of the RetEngine project. Please refer to the main project license for usage terms.
+Released under the MIT License. See [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
