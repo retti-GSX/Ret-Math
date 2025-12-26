@@ -5,11 +5,116 @@
 
 RetMath is a comprehensive C++ mathematics library designed for game development, computer graphics, and real-time applications. It provides a wide range of mathematical structures and functions for working with vectors, matrices, quaternions, geometry, transformations, colors, and various utility functions.
 
-<div align="center">
-  <img src="docs/2dgravity.gif" alt="RetMath Library Demo" width="800"/>
-  <br>
-  <em>Demonstration of vector operations, matrix transformations, and collision detection</em>
-<div>
+## Features
+
+### Vectors
+- **Vector2**: 2D vectors for points and directions
+- **Vector3**: 3D vectors for points, directions, and colors
+- **Vector4**: 4D vectors for homogeneous coordinates
+- Common operations: normalization, dot/cross products, interpolation
+
+### Matrices
+- **Matrix2x2**: 2×2 matrices for 2D linear transformations
+- **Matrix3x3**: 3×3 matrices for 3D linear transformations
+- **Matrix4x4**: 4×4 matrices for 3D affine transformations
+- Specialized matrices: translation, rotation, scaling, perspective, orthographic, view (lookAt)
+
+### Quaternions
+- Efficient 3D rotation representation
+- Conversion to/from matrices and Euler angles
+- Spherical linear interpolation (SLERP)
+- Normalization and inversion operations
+
+### Geometry
+- **Plane**: 3D planes with distance calculations
+- **Ray**: Ray casting and intersection testing
+- **Rect**: 2D rectangles with containment checks
+- **Circle**: 2D circles with intersection testing
+- **AABB**: Axis-Aligned Bounding Boxes
+- **OBB**: Oriented Bounding Boxes
+- **Sphere**: 3D spheres with volume and surface area calculations
+- **Triangle**: 3D triangles with normal calculations
+- **Capsule**: 3D capsules for collision detection
+
+### Transformations
+- Combined position, rotation, and scale operations
+- Matrix generation from transformation components
+- Easy manipulation of 3D object transformations
+
+### Colors
+- RGB/RGBA color representation
+- HEX color conversion
+- Color interpolation
+- Component-wise operations
+
+### Utilities
+- **Random**: Random number generation, unit sphere/circle sampling
+- **Interpolation**: Linear, smoothstep, smootherstep, Catmull-Rom interpolation
+- **Intersection**: Comprehensive collision detection and intersection testing
+- **Math functions**: Trigonometry, clamping, lerping, and more
+
+## Mathematical Constants
+
+The library provides commonly used mathematical constants:
+
+```cpp
+MathConstants::PI        // 3.14159265358979323846f
+MathConstants::PI_2      // 1.57079632679489661923f
+MathConstants::PI_4      // 0.785398163397448309616f
+MathConstants::TAU       // 6.28318530717958647692f
+MathConstants::E         // 2.71828182845904523536f
+MathConstants::SQRT2     // 1.41421356237309504880f
+MathConstants::SQRT3     // 1.73205080756887729352f
+MathConstants::DEG_TO_RAD
+MathConstants::RAD_TO_DEG
+```
+
+## Usage
+
+### Basic Example
+
+```cpp
+#include <RetMath.hpp>
+
+int main() {
+    using namespace Math;
+    
+    // Vector operations example
+    Vector3<float> vector(1.0f, 2.0f, 3.0f);
+    Vector3<float> normalized = vector.normalized();  // Get normalized vector
+    float length = vector.length();  // Calculate vector length
+    
+    // Matrix operations - create transformation matrices
+    // Create translation matrix for moving objects in 3D space
+    Matrix4x4<float> transform = Matrix4x4<float>::translation(1.0f, 2.0f, 3.0f);
+    
+    // Create rotation matrix for 45 degrees around Y-axis
+    // Convert degrees to radians using constant
+    Matrix4x4<float> rotation = Matrix4x4<float>::rotationY(MathConstants::PI / 4.0f);
+    
+    // Combine translation and rotation matrices (translation first, then rotation)
+    Matrix4x4<float> combined = transform * rotation;
+    
+    // Quaternion operations - alternative to matrices for rotations
+    Vector3<float> axis(0.0f, 1.0f, 0.0f);  // Rotation axis (Y-axis)
+    Quaternion<float> quaternion;
+    
+    // Create quaternion from axis and angle (90 degrees around Y-axis)
+    quaternion.fromAxisAngle(axis, MathConstants::PI / 2.0f);
+    
+    // Convert quaternion to matrix for use with standard transformation pipeline
+    Matrix4x4<float> rotationMatrix = quaternion.toMatrix();
+    
+    // Geometry operations - working with 3D shapes
+    // Create sphere at origin with radius 5 units
+    Sphere<float> sphere(Vector3<float>(0.0f, 0.0f, 0.0f), 5.0f);
+    
+    // Check if point (1, 0, 0) is inside the sphere
+    bool contains = sphere.contains(Vector3<float>(1.0f, 0.0f, 0.0f));
+    
+    return 0;  // Exit program successfully
+}
+```
 
 ### Building the Library
 
