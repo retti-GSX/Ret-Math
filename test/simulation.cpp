@@ -1,9 +1,4 @@
 /// ../docs/.gif <- result this script
-/// coompilation command
-// mkdir build
-// cd build
-// cmake ..
-//cmake --build .
 /**
  * @file main.cpp
  * @brief Gravity Simulation using RetMath Library
