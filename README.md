@@ -73,7 +73,7 @@ MathConstants::RAD_TO_DEG
 ### Basic Example
 
 ```cpp
-#include "RetMath.hpp"
+#include <RetMath.hpp>
 
 int main() {
     using namespace Math;
