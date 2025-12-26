@@ -148,7 +148,7 @@ target_link_libraries(your_project RetMath_static)
 
 ## Documentation
 
-Comprehensive documentation is available in the [docs/RetMath](docs/RetMath/index.html) directory, including:
+Comprehensive documentation is available in the [docs/RetMath](docs/index.html) directory, including:
 
 - Detailed API reference for all classes and functions
 - Usage examples for each component
