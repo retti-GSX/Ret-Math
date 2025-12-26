@@ -1,2 +1,196 @@
-# Ret-Math
-Ret math wich C++20
+# RetMath - Mathematics Library for Games and Graphics (MIT)
+
+[![Documentation](docs/index.html)](docs/index.html) | [CMake Build](CMakeLists.txt)
+
+RetMath is a comprehensive C++ mathematics library designed for game development, computer graphics, and real-time applications. It provides a wide range of mathematical structures and functions for working with vectors, matrices, quaternions, geometry, transformations, colors, and various utility functions.
+
+## Features
+
+### Vectors
+- **Vector2**: 2D vectors for points and directions
+- **Vector3**: 3D vectors for points, directions, and colors
+- **Vector4**: 4D vectors for homogeneous coordinates
+- Common operations: normalization, dot/cross products, interpolation
+
+### Matrices
+- **Matrix2x2**: 2×2 matrices for 2D linear transformations
+- **Matrix3x3**: 3×3 matrices for 3D linear transformations
+- **Matrix4x4**: 4×4 matrices for 3D affine transformations
+- Specialized matrices: translation, rotation, scaling, perspective, orthographic, view (lookAt)
+
+### Quaternions
+- Efficient 3D rotation representation
+- Conversion to/from matrices and Euler angles
+- Spherical linear interpolation (SLERP)
+- Normalization and inversion operations
+
+### Geometry
+- **Plane**: 3D planes with distance calculations
+- **Ray**: Ray casting and intersection testing
+- **Rect**: 2D rectangles with containment checks
+- **Circle**: 2D circles with intersection testing
+- **AABB**: Axis-Aligned Bounding Boxes
+- **OBB**: Oriented Bounding Boxes
+- **Sphere**: 3D spheres with volume and surface area calculations
+- **Triangle**: 3D triangles with normal calculations
+- **Capsule**: 3D capsules for collision detection
+
+### Transformations
+- Combined position, rotation, and scale operations
+- Matrix generation from transformation components
+- Easy manipulation of 3D object transformations
+
+### Colors
+- RGB/RGBA color representation
+- HEX color conversion
+- Color interpolation
+- Component-wise operations
+
+### Utilities
+- **Random**: Random number generation, unit sphere/circle sampling
+- **Interpolation**: Linear, smoothstep, smootherstep, Catmull-Rom interpolation
+- **Intersection**: Comprehensive collision detection and intersection testing
+- **Math functions**: Trigonometry, clamping, lerping, and more
+
+## Mathematical Constants
+
+The library provides commonly used mathematical constants:
+
+```cpp
+MathConstants::PI        // 3.14159265358979323846f
+MathConstants::PI_2      // 1.57079632679489661923f
+MathConstants::PI_4      // 0.785398163397448309616f
+MathConstants::TAU       // 6.28318530717958647692f
+MathConstants::E         // 2.71828182845904523536f
+MathConstants::SQRT2     // 1.41421356237309504880f
+MathConstants::SQRT3     // 1.73205080756887729352f
+MathConstants::DEG_TO_RAD
+MathConstants::RAD_TO_DEG
+```
+
+## Usage
+
+### Basic Example
+
+```cpp
+#include "RetMath.hpp"
+
+int main() {
+    using namespace Math;
+    
+    // Vector operations
+    Vec3 vector(1.0f, 2.0f, 3.0f);
+    Vec3 normalized = vector.normalized();
+    float length = vector.length();
+    
+    // Matrix operations
+    Mat4 transform = Mat4::translation(1.0f, 2.0f, 3.0f);
+    Mat4 rotation = Mat4::rotationY(toRadians(45.0f));
+    Mat4 combined = transform * rotation;
+    
+    // Quaternion operations
+    Quat quaternion(Vec3(0.0f, 1.0f, 0.0f), toRadians(90.0f));
+    Mat4 rotationMatrix = quaternion.toMatrix();
+    
+    // Geometry operations
+    Sphere<float> sphere(Vec3(0.0f, 0.0f, 0.0f), 5.0f);
+    bool contains = sphere.contains(Vec3(1.0f, 0.0f, 0.0f));
+    
+    return 0;
+}
+```
+
+### Building the Library
+
+RetMath uses CMake for building. The library can be built as both static and shared libraries:
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release
+```
+
+This will generate:
+- `RetMath.lib` - Static library
+- `RetMath.dll` - Shared library (Windows)
+
+### CMake Integration
+
+To use RetMath in your CMake project:
+
+```cmake
+find_package(RetMath REQUIRED)
+target_link_libraries(your_project RetMath)
+```
+
+Or directly include it:
+
+```cmake
+add_subdirectory(path/to/RetMath)
+target_link_libraries(your_project RetMath_static)
+```
+
+## Documentation
+
+Comprehensive documentation is available in the [docs/RetMath](docs/RetMath/index.html) directory, including:
+
+- Detailed API reference for all classes and functions
+- Usage examples for each component
+- Mathematical explanations and formulas
+- Code samples demonstrating common operations
+
+## Architecture
+
+The library is organized into logical modules:
+
+```
+core/RetMath/
+├── include/              # Public headers
+│   ├── RetMath.hpp       # Main include file
+│   ├── vectors/          # Vector classes
+│   ├── matrices/         # Matrix classes
+│   ├── quaternions/      # Quaternion classes
+│   ├── geometry/         # Geometry classes
+│   ├── transformations/  # Transformation classes
+│   ├── color/            # Color classes
+│   └── utilities/        # Utility functions
+└── src/                  # Source implementations
+```
+
+## Performance
+
+- Uses C++20 features for optimal performance
+- Template-based design for type safety and flexibility
+- Inline functions for critical operations
+- SIMD-ready data structures
+- Optimized for real-time applications
+
+## Dependencies
+
+RetMath is a header-only library with minimal dependencies:
+- C++20 compliant compiler
+- CMake 3.15 or higher (for building)
+- Standard Template Library (STL)
+
+## License
+
+This library is provided as part of the RetEngine project. Please refer to the main project license for usage terms.
+
+## Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Maintain consistent code style
+2. Add comprehensive tests for new features
+3. Update documentation for changes
+4. Ensure backward compatibility
+5. Optimize for performance
+
+## Support
+
+For issues, questions, or feature requests, please use the project's issue tracker.
+
+---
+
+© 2025 retti ❤️
