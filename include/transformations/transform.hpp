@@ -15,22 +15,40 @@ public:
     Transform(const Vector3<T>& pos, const Quaternion<T>& rot, const Vector3<T>& scl);
     
     // Model matrix (model space -> world space)
-    Matrix4x4<T> getModelMatrix() const;
-    Matrix4x4<T> getInverseModelMatrix() const;
+    Matrix4x4<T> getModelMatrix() const {
+        return buildModelMatrix(position, rotation, scale);
+    }
+    Matrix4x4<T> getInverseModelMatrix() const { 
+        Matrix4x4<T> translationMat = Matrix4x4<T>::translation(-position);
+        Matrix4x4<T> rotationMat = rotation.inverse().toMatrix();
+        Matrix4x4<T> scaleMat = Matrix4x4<T>::scaling(Vector3<T>(1/scale.x, 1/scale.y, 1/scale.z));
+        return scaleMat * rotationMat * translationMat;
+    }
     
     // Legacy aliases for compatibility
     Matrix4x4<T> getMatrix() const { return getModelMatrix(); }
     Matrix4x4<T> getInverseMatrix() const { return getInverseModelMatrix(); }
     
     // Point and vector transformations
-    Vector3<T> transformPoint(const Vector3<T>& point) const;      // Model space -> World space
-    Vector3<T> transformVector(const Vector3<T>& vector) const;    // Direction vectors (no translation)
-    Vector3<T> inverseTransformPoint(const Vector3<T>& point) const; // World space -> Model space
+    Vector3<T> transformPoint(const Vector3<T>& point) const {     // Model space -> World space
+        return getModelMatrix().transformPoint(point);
+    }
+    Vector3<T> transformVector(const Vector3<T>& vector) const {   // Direction vectors (no translation)
+        return rotation.rotate(vector) * scale; // Apply rotation and scale only
+    }
+    Vector3<T> inverseTransformPoint(const Vector3<T>& point) const { // World space -> Model space
+        return getInverseModelMatrix().transformPoint(point);
+    }
     
     // Space transformation helpers
     static Matrix4x4<T> buildModelMatrix(const Vector3<T>& position, 
                                         const Quaternion<T>& rotation, 
-                                        const Vector3<T>& scale);
+                                        const Vector3<T>& scale) {
+        Matrix4x4<T> translationMat = Matrix4x4<T>::translation(position);
+        Matrix4x4<T> rotationMat = rotation.toMatrix();
+        Matrix4x4<T> scaleMat = Matrix4x4<T>::scaling(scale);
+        return translationMat * rotationMat * scaleMat;
+    }
     
     static Transform fromModelMatrix(const Matrix4x4<T>& matrix);
     
