@@ -113,3 +113,38 @@ template<typename T>
 void Transform<T>::scaleBy(const Vector3<T>& scaling) {
     scale = scale * scaling;
 }
+
+template<typename T>
+Matrix4x4<T> Transform<T>::getModelMatrix() const {
+    // M = T * R * S (Scale, then Rotate, then Translate)
+    return buildModelMatrix(position, rotation, scale);
+}
+
+template<typename T>
+Matrix4x4<T> Transform<T>::buildModelMatrix(const Vector3<T>& position, 
+                                           const Quaternion<T>& rotation, 
+                                           const Vector3<T>& scale) {
+    Matrix4x4<T> translationMat = Matrix4x4<T>::translation(position);
+    Matrix4x4<T> rotationMat = rotation.toMatrix();
+    Matrix4x4<T> scaleMat = Matrix4x4<T>::scaling(scale);
+    
+    return translationMat * rotationMat * scaleMat;
+}
+
+template<typename T>
+Vector3<T> Transform<T>::transformPoint(const Vector3<T>& point) const {
+    // Transform from model space to world space
+    return getModelMatrix().transformPoint(point);
+}
+
+template<typename T>
+Vector3<T> Transform<T>::inverseTransformPoint(const Vector3<T>& point) const {
+    // Transform from world space to model space
+    return getInverseModelMatrix().transformPoint(point);
+}
+
+template<typename T>
+Vector3<T> Transform<T>::transformVector(const Vector3<T>& vector) const {
+    // For direction vectors (no translation)
+    return rotation.rotate(vector) * scale; // Apply rotation and scale only
+}
