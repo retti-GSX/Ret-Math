@@ -216,6 +216,8 @@ Contributions are welcome! Please follow these guidelines:
 
 For issues, questions, or feature requests, please use the project's issue tracker.
 
+## Update
+# 1.1
 ---
 
 © 2025 retti ❤️
